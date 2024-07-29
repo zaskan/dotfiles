@@ -1,0 +1,19 @@
+aap24:
+  image: /var/lib/libvirt/images/rhel9
+  numcpus: 2
+  memory: 4196
+  disks:
+  - size: 20
+    pool: default
+  reservedns: true
+  nets:
+  - name: default
+    nic: eth0
+    gateway: 192.168.122.1
+  rhnregister: true
+  rhnuser: *******************
+  rhnpassword: *******************
+  cmds:
+  - subscription-manager repos --enable=ansible-automation-platform-2.4-for-rhel-9-x86_64-rpms
+  - dnf install -y --enablerepo=ansible-automation-platform-2.4-for-rhel-9-x86_64-rpms ansible-automation-platform-installer
+  waitcommand: test -f /opt/ansible-automation-platform/installer/inventory
